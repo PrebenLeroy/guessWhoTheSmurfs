@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Rick and Morty Characters</string>
+    <string name="title_activity_main">Rick and morty Characters</string>
+    <string name="action_settings">Settings</string>
+    <string name="evilmorty">Evil morty</string>
+    <string name="evilmortydescription">Evil Morty is one of infinitely many versions of Morty, who is currently serving as the first democratically-elected President of the Citadel of Ricks.</string>
+    <string name="ricksanchez">Rick Sanchez</string>
+    <string name="rickdescription">Rick Sanchez is the co-eponymous main character and leading protagonist of the show. He is a genius scientist whose alcoholism and reckless, nihilistic behavior are a source of concern for his daughter\'s family, as well as the safety of their son, Morty.</string>
+    <string name="pooptydescription">Mr. Poopybutthole is a long-time family friend of the Smiths. Rick clearly considers him to have long been a dependable person, although it\'s uncertain how long they\'ve known each other. He made his first appearance in the episode Total Rickall.</string>
+    <string name="poopy">Mr. Poopybutthole</string>
+    <string name="meeseeksdescription">Meeseeks are creatures created to serve a singular purpose for which they will go to any length to fulfill. After they serve their purpose, they expire and vanish into the air. Their motivation to help others comes from the fact that existence is painful to a Meeseeks, and the only way to be removed from existence is to complete the task they were called to perform. Physical violence cannot eliminate them.</string>
+    <string name="meeseeks">Mr. Meeseeks</string>
+    <string name="morty">Morty</string>
+    <string name="mortydescription">Mortimer \"Morty\" Smith Sr. is one of the two eponymous main protagonists in Rick and Morty. He is the grandson of Rick and is often forced to tag along on his various misadventures. Morty attends Harry Herpson High School along with his sister, Summer.</string>
+</resources>
