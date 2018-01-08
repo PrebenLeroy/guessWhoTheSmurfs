@@ -17,6 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider android:name=".persistency.CharacterProvider"
+            android:exported="false"
+            android:authorities="com.example.provider.guesswhothesmurfs"/>
     </application>
 
 </manifest>

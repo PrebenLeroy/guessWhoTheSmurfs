@@ -68,18 +68,18 @@ public class MainActivityFragment extends Fragment {
 
         for (int i = 0; i < 10; i++){
 
-            GuessWhoTheSmurfsCharacter evilMorty = new GuessWhoTheSmurfsCharacter(R.mipmap.evilmorty, getString(R.string.evilmorty), getString(R.string.evilmortydescription));
+            GuessWhoTheSmurfsCharacter evilMorty = new GuessWhoTheSmurfsCharacter(R.mipmap.grote, getString(R.string.evilmorty), getString(R.string.evilmortydescription));
 
-            GuessWhoTheSmurfsCharacter rick = new GuessWhoTheSmurfsCharacter(R.mipmap.ricksanchez, getString(R.string.ricksanchez),
+            GuessWhoTheSmurfsCharacter rick = new GuessWhoTheSmurfsCharacter(R.mipmap.bril, getString(R.string.ricksanchez),
                 getString(R.string.rickdescription));
 
-            GuessWhoTheSmurfsCharacter morty = new GuessWhoTheSmurfsCharacter(R.mipmap.morty, getString(R.string.morty),
+            GuessWhoTheSmurfsCharacter morty = new GuessWhoTheSmurfsCharacter(R.mipmap.smul, getString(R.string.morty),
                 getString(R.string.mortydescription));
 
-            GuessWhoTheSmurfsCharacter buthole = new GuessWhoTheSmurfsCharacter(R.mipmap.mrpoopybutthole, getString(R.string.poopy),
+            GuessWhoTheSmurfsCharacter buthole = new GuessWhoTheSmurfsCharacter(R.mipmap.knutsel, getString(R.string.poopy),
                 getString(R.string.pooptydescription));
 
-            GuessWhoTheSmurfsCharacter meeseeks = new GuessWhoTheSmurfsCharacter(R.mipmap.meeseeks, getString(R.string.meeseeks),
+            GuessWhoTheSmurfsCharacter meeseeks = new GuessWhoTheSmurfsCharacter(R.mipmap.lol, getString(R.string.meeseeks),
                 getString(R.string.meeseeksdescription));
 
 
