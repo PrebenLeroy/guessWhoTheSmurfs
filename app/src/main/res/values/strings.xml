@@ -12,4 +12,8 @@
     <string name="meeseeks">Mr. Meeseeks</string>
     <string name="morty">Morty</string>
     <string name="mortydescription">Mortimer \"Morty\" Smith Sr. is one of the two eponymous main protagonists in Rick and Morty. He is the grandson of Rick and is often forced to tag along on his various misadventures. Morty attends Harry Herpson High School along with his sister, Summer.</string>
+    <string name="description">Description</string>
+    <string name="charactername">Charactername</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>
