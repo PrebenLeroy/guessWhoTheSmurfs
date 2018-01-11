@@ -16,4 +16,7 @@
     <string name="charactername">Charactername</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="add_new_character_to_game">Add new character to game</string>
+    <string name="enter_description">Enter description:</string>
+    <string name="enter_name_of_character">Enter name of character:</string>
 </resources>
