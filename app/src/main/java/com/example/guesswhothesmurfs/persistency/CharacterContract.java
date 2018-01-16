@@ -11,7 +11,7 @@ public final class CharacterContract {
 
     //EERST schema aanmaken die database gaat declareren
     //added voor contentprovider
-    public static final String CONTENT_AUTHORITY = "com.example.provider.guesswhothesmurfs  ";
+    public static final String CONTENT_AUTHORITY = "com.example.provider.guesswhothesmurfs";
 
     //added voor contentprovider
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
