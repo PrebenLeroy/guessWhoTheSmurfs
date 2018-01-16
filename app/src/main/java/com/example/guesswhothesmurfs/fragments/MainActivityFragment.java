@@ -1,5 +1,6 @@
 package com.example.guesswhothesmurfs.fragments;
 
+import android.app.AlertDialog;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.guesswhothesmurfs.adapters.GuessWhoTheSmurfsAdapter;
 import com.example.guesswhothesmurfs.models.GuessWhoTheSmurfsCharacter;
@@ -53,17 +56,18 @@ public class MainActivityFragment extends Fragment {
         itemAnimator.setRemoveDuration(1000);
         recyclerView.setItemAnimator(itemAnimator);
 
-        /*recyclerView.addOnItemTouchListener(new CustomRVItemTouchListener(getContext(), recyclerView, new RecyclerViewItemClickListener() {
+        recyclerView.addOnItemTouchListener(new CustomRVItemTouchListener(getContext(), recyclerView, new RecyclerViewItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                adapter.remove(position);
+
+                adapter.view(position);
             }
 
             @Override
             public void onLongClick(View view, int position) {
 
             }
-        }));*/
+        }));
     }
 
 
