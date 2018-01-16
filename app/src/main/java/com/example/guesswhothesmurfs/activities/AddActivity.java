@@ -69,7 +69,6 @@ public class AddActivity extends AppCompatActivity {
 
     private void saveCharacter(String name, String description) {
         getAllCharacters();
-        Log.i("list2", this.list.toString());
         if(!this.list.contains(name)){
             ContentValues contentValues = new ContentValues();
             contentValues.put(CharacterContract.CharacterEntry.COLUMN_PICTUREID, R.mipmap.vraagteken);
@@ -114,8 +113,6 @@ public class AddActivity extends AppCompatActivity {
                 cursor.close();
             }
         }
-
-        Log.i("list", list.toString());
 
     }
 }
