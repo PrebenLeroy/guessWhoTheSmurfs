@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.AddActivity"/>
+        <activity android:name=".activities.MainActivity"/>
         <provider android:name=".persistency.CharacterProvider"
             android:exported="false"
             android:authorities="com.example.provider.guesswhothesmurfs"/>

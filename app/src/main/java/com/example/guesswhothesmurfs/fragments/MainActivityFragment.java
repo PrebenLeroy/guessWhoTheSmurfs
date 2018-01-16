@@ -1,11 +1,14 @@
 package com.example.guesswhothesmurfs.fragments;
 
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import java.util.List;
 
 import com.example.guesswhothesmurfs.R;
 import com.example.guesswhothesmurfs.interfaces.RecyclerViewItemClickListener;
+import com.example.guesswhothesmurfs.persistency.CharacterContract;
 import com.example.guesswhothesmurfs.util.CustomRVItemTouchListener;
 
 /**
@@ -49,7 +53,7 @@ public class MainActivityFragment extends Fragment {
         itemAnimator.setRemoveDuration(1000);
         recyclerView.setItemAnimator(itemAnimator);
 
-        recyclerView.addOnItemTouchListener(new CustomRVItemTouchListener(getContext(), recyclerView, new RecyclerViewItemClickListener() {
+        /*recyclerView.addOnItemTouchListener(new CustomRVItemTouchListener(getContext(), recyclerView, new RecyclerViewItemClickListener() {
             @Override
             public void onClick(View view, int position) {
                 adapter.remove(position);
@@ -59,36 +63,44 @@ public class MainActivityFragment extends Fragment {
             public void onLongClick(View view, int position) {
 
             }
-        }));
+        }));*/
     }
 
 
     private List<GuessWhoTheSmurfsCharacter> generateData() {
         List<GuessWhoTheSmurfsCharacter> data = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++){
+        String[] projection = {
+                CharacterContract.CharacterEntry._ID,
+                CharacterContract.CharacterEntry.COLUMN_PICTUREID,
+                CharacterContract.CharacterEntry.COLUMN_NAME,
+                CharacterContract.CharacterEntry.COLUMN_DESCRIPTION
+        };
 
-            GuessWhoTheSmurfsCharacter evilMorty = new GuessWhoTheSmurfsCharacter(R.mipmap.grote, getString(R.string.evilmorty), getString(R.string.evilmortydescription));
+        String selection = null;
+        String[] selectionArgs = null;
 
-            GuessWhoTheSmurfsCharacter rick = new GuessWhoTheSmurfsCharacter(R.mipmap.bril, getString(R.string.ricksanchez),
-                getString(R.string.rickdescription));
+        String sortOrder = null;
 
-            GuessWhoTheSmurfsCharacter morty = new GuessWhoTheSmurfsCharacter(R.mipmap.smul, getString(R.string.morty),
-                getString(R.string.mortydescription));
+        Uri uri = CharacterContract.CharacterEntry.CONTENT_URI;
 
-            GuessWhoTheSmurfsCharacter buthole = new GuessWhoTheSmurfsCharacter(R.mipmap.knutsel, getString(R.string.poopy),
-                getString(R.string.pooptydescription));
+        Log.i("uri", uri.toString());
 
-            GuessWhoTheSmurfsCharacter meeseeks = new GuessWhoTheSmurfsCharacter(R.mipmap.lol, getString(R.string.meeseeks),
-                getString(R.string.meeseeksdescription));
+        Cursor cursor = getActivity().getApplicationContext().getContentResolver().query(uri, projection, selection, selectionArgs, sortOrder);
 
+        if (cursor != null) {
+            try {
+                while(cursor.moveToNext()) {
+                    int picId = cursor.getInt(cursor.getColumnIndex(CharacterContract.CharacterEntry.COLUMN_PICTUREID));
+                    String name = cursor.getString(cursor.getColumnIndex(CharacterContract.CharacterEntry.COLUMN_NAME));
+                    String description = cursor.getString(cursor.getColumnIndex(CharacterContract.CharacterEntry.COLUMN_DESCRIPTION));
+                    data.add(new GuessWhoTheSmurfsCharacter(picId, name, description));
 
-        data.add(morty);
-        data.add(rick);
-        data.add(buthole);
-        data.add(meeseeks);
-        data.add(evilMorty);
-    }
+                }
+            } finally {
+                cursor.close();
+            }
+        }
 
         return data;
     }

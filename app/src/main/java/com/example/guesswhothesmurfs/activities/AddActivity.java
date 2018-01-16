@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -78,7 +79,13 @@ public class AddActivity extends AppCompatActivity {
             Uri uri = CharacterContract.CharacterEntry.CONTENT_URI;
             Uri uriRowInserted = getContentResolver().insert(uri, contentValues);
             Log.i(TAG, "Item inserted at: " + uriRowInserted);
-            AddActivity.super.onBackPressed();
+            Toast.makeText(getApplicationContext(), "Inserted character " + name, Toast.LENGTH_SHORT).show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    AddActivity.this.finish();
+                }
+            }, Toast.LENGTH_SHORT);
         } else {
             Toast.makeText(getApplicationContext(), "Character already inserted", Toast.LENGTH_SHORT).show();
         }

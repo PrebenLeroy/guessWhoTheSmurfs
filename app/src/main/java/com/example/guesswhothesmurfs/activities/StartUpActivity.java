@@ -14,7 +14,7 @@ import com.example.guesswhothesmurfs.R;
 
 public class StartUpActivity extends AppCompatActivity {
 
-    private Button btnAdd;
+    private Button btnAdd, btnViewAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,15 @@ public class StartUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StartUpActivity.this, AddActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        this.btnViewAll = (Button) findViewById(R.id.btnCharacters);
+        this.btnViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartUpActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
