@@ -1,6 +1,7 @@
 package com.example.guesswhothesmurfs.adapters;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.LauncherActivity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,7 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,8 +50,6 @@ public class GuessWhoTheSmurfsAdapter extends RecyclerView.Adapter<GuessWhoTheSm
     private Context context;
 
     private ViewGroup parent;
-    private static final String TAG = "GuessWhoTheSmurfs";
-    private static int position = 0;
 
     @Override
     public GuessWhoTheSmurfsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -77,35 +78,13 @@ public class GuessWhoTheSmurfsAdapter extends RecyclerView.Adapter<GuessWhoTheSm
      *  Remove a RecyclerView item containing a specified Data object
      * @param position The pôstition of the data to remove
      */
-    public void view(int position) {
-        GuessWhoTheSmurfsAdapter.position = position;
+    public GuessWhoTheSmurfsCharacter view(int position) {
         final GuessWhoTheSmurfsCharacter character = list.get(position);
-        LayoutInflater inflater = LayoutInflater.from(this.parent.getContext());
-        Log.i("name", character.getName());
-        Log.i("description", character.getDescription());
-        final View dialog = inflater.inflate(R.layout.detail_dialog, null);
-        new AlertDialog.Builder(this.parent.getContext())
-                .setView(dialog).setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        return character;
+    }
 
-            public void onClick(DialogInterface dialog, int whichButton) {
-
-                String selection = CharacterContract.CharacterEntry.COLUMN_NAME + " = ?";
-                String[] selectionArgs = {character.getName()};
-
-                Uri uri = Uri.withAppendedPath(CharacterContract.CharacterEntry.CONTENT_URI, character.getName());
-                int rowsUpdated = context.getContentResolver().delete(uri, selection, selectionArgs);
-                Log.i(TAG, "Number of rows updated: " + rowsUpdated);
-
-                list.remove(GuessWhoTheSmurfsAdapter.this.position);
-                notifyItemRemoved(GuessWhoTheSmurfsAdapter.this.position);
-
-            }
-        }).setNegativeButton("Update", null).setNeutralButton(android.R.string.cancel, null).show();
-        ImageView imageView = (ImageView) dialog.findViewById(R.id.dialog_image);
-        imageView.setImageResource(character.getCharacterImage());
-        TextView name = (TextView) dialog.findViewById(R.id.character);
-        name.setText(character.getName());
-        TextView description = (TextView) dialog.findViewById(R.id.description);
-        description.setText(character.getDescription());
+    public void remove(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
     }
 }

@@ -22,4 +22,7 @@
     <string name="imagecharacter">ImageCharacter</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
+    <string name="update_charactername">Update charactername</string>
+    <string name="update_description">Update description</string>
+    <string name="update_character">Update character</string>
 </resources>
