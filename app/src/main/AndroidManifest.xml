@@ -19,6 +19,9 @@
         </activity>
         <activity android:name=".activities.AddActivity"/>
         <activity android:name=".activities.MainActivity"/>
+        <activity android:name=".activities.GameChooseActivity" />
+        <activity android:name=".activities.PlayGameActivity" />
+
         <provider android:name=".persistency.CharacterProvider"
             android:exported="false"
             android:authorities="com.example.provider.guesswhothesmurfs"/>
