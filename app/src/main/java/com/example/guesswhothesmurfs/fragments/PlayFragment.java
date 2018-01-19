@@ -29,6 +29,7 @@ import com.example.guesswhothesmurfs.persistency.CharacterContract;
 import com.example.guesswhothesmurfs.util.CustomRVItemTouchListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,7 +41,8 @@ public class PlayFragment extends Fragment {
     private RecyclerView recyclerView;
     private static final String TAG = "GuessWhoTheSmurfs";
     private GuessWhoTheSmurfsCharacter character;
-
+    private GuessWhoTheSmurfsAdapter adapter;
+    private List<GuessWhoTheSmurfsCharacter> characters;
 
     public PlayFragment() {
     }
@@ -56,7 +58,16 @@ public class PlayFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final GuessWhoTheSmurfsAdapter adapter = new GuessWhoTheSmurfsAdapter(generateData(),getActivity().getApplicationContext());
+
+        if(savedInstanceState != null){
+            GuessWhoTheSmurfsCharacter[] smurfsCharacters = (GuessWhoTheSmurfsCharacter[]) savedInstanceState.getSerializable("characterArray");
+            characters = Arrays.asList(smurfsCharacters);
+        } else {
+            characters = generateData();
+        }
+
+        adapter = new GuessWhoTheSmurfsAdapter(characters,getActivity().getApplicationContext());
+
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
@@ -110,6 +121,15 @@ public class PlayFragment extends Fragment {
         }
 
         return data;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        List<GuessWhoTheSmurfsCharacter> characterList = adapter.getAllCharacters();
+        GuessWhoTheSmurfsCharacter[] guessWhoTheSmurfsCharacters = new GuessWhoTheSmurfsCharacter[characterList.size()];
+        characterList.toArray(guessWhoTheSmurfsCharacters);
+        outState.putSerializable("characterArray", guessWhoTheSmurfsCharacters);
     }
 
 }
