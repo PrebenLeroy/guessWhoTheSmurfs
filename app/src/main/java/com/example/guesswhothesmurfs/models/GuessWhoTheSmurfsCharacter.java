@@ -1,7 +1,9 @@
 package com.example.guesswhothesmurfs.models;
 
 
-public class GuessWhoTheSmurfsCharacter {
+import java.io.Serializable;
+
+public class GuessWhoTheSmurfsCharacter implements Serializable{
 
     private int characterImage;
 

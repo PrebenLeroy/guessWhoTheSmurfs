@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -27,6 +28,7 @@ import com.example.guesswhothesmurfs.adapters.GuessWhoTheSmurfsAdapter;
 import com.example.guesswhothesmurfs.models.GuessWhoTheSmurfsCharacter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.example.guesswhothesmurfs.R;
@@ -42,6 +44,8 @@ public class MainActivityFragment extends Fragment {
     private RecyclerView recyclerView;
     private static final String TAG = "GuessWhoTheSmurfs";
     private GuessWhoTheSmurfsCharacter character;
+    private GuessWhoTheSmurfsAdapter adapter;
+    private List<GuessWhoTheSmurfsCharacter> characters;
 
     public MainActivityFragment() {
     }
@@ -55,9 +59,17 @@ public class MainActivityFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final GuessWhoTheSmurfsAdapter adapter = new GuessWhoTheSmurfsAdapter(generateData(),getActivity().getApplicationContext());
+
+        if(savedInstanceState != null){
+            GuessWhoTheSmurfsCharacter[] smurfsCharacters = (GuessWhoTheSmurfsCharacter[]) savedInstanceState.getSerializable("characterArray");
+            characters = Arrays.asList(smurfsCharacters);
+        } else {
+            characters = generateData();
+        }
+
+        this.adapter = new GuessWhoTheSmurfsAdapter(characters,getActivity().getApplicationContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
@@ -123,10 +135,7 @@ public class MainActivityFragment extends Fragment {
 
                                                     Toast.makeText(getContext(), "Updated " + character.getName(), Toast.LENGTH_SHORT).show();
 
-                                                    adapter.notifyItemChanged(position);
-                                                    adapter.notifyDataSetChanged();
-
-                                                    getActivity().recreate();
+                                                    adapter.update(position, name, description);
                                                 }
                                             }
                                         }).setNegativeButton(android.R.string.cancel, null).show();;
@@ -153,11 +162,6 @@ public class MainActivityFragment extends Fragment {
 
 
             }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
         }));
     }
 
@@ -168,7 +172,6 @@ public class MainActivityFragment extends Fragment {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(lp);
     }
-
 
     private List<GuessWhoTheSmurfsCharacter> generateData() {
         List<GuessWhoTheSmurfsCharacter> data = new ArrayList<>();
@@ -206,5 +209,14 @@ public class MainActivityFragment extends Fragment {
         }
 
         return data;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        List<GuessWhoTheSmurfsCharacter> characterList = adapter.getAllCharacters();
+        GuessWhoTheSmurfsCharacter[] guessWhoTheSmurfsCharacters = new GuessWhoTheSmurfsCharacter[characterList.size()];
+        characterList.toArray(guessWhoTheSmurfsCharacters);
+        outState.putSerializable("characterArray", guessWhoTheSmurfsCharacters);
     }
 }

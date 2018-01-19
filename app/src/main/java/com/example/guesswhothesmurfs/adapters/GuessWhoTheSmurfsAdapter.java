@@ -26,6 +26,7 @@ import com.example.guesswhothesmurfs.adapters.ViewHolders.GuessWhoTheSmurfsViewH
 import com.example.guesswhothesmurfs.models.GuessWhoTheSmurfsCharacter;
 import com.example.guesswhothesmurfs.persistency.CharacterContract;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.zip.Inflater;
@@ -74,6 +75,10 @@ public class GuessWhoTheSmurfsAdapter extends RecyclerView.Adapter<GuessWhoTheSm
         return list.size();
     }
 
+    public List<GuessWhoTheSmurfsCharacter> getAllCharacters(){
+        return list;
+    }
+
     /**
      *  Remove a RecyclerView item containing a specified Data object
      * @param position The pôstition of the data to remove
@@ -86,5 +91,13 @@ public class GuessWhoTheSmurfsAdapter extends RecyclerView.Adapter<GuessWhoTheSm
     public void remove(int position) {
         list.remove(position);
         notifyItemRemoved(position);
+    }
+
+    public void update(int position, String name, String description){
+        GuessWhoTheSmurfsCharacter character = view(position);
+        character.setName(name);
+        character.setDescription(description);
+        list.set(position, character);
+        notifyDataSetChanged();
     }
 }

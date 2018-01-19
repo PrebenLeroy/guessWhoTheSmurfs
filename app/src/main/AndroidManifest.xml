@@ -17,10 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AddActivity"/>
-        <activity android:name=".activities.MainActivity"/>
-        <activity android:name=".activities.GameChooseActivity" />
-        <activity android:name=".activities.PlayGameActivity" />
+        <activity android:name=".activities.AddActivity"
+            android:parentActivityName=".activities.StartUpActivity"/>
+        <activity android:name=".activities.MainActivity"
+            android:parentActivityName=".activities.StartUpActivity"/>
+        <activity android:name=".activities.GameChooseActivity"
+            android:parentActivityName=".activities.StartUpActivity"/>
+        <activity android:name=".activities.PlayGameActivity"
+            android:parentActivityName=".activities.GameChooseActivity"/>
 
         <provider android:name=".persistency.CharacterProvider"
             android:exported="false"

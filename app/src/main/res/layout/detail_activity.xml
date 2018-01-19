@@ -6,37 +6,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/dialog_image"
-        android:layout_width="263dp"
-        android:layout_height="167dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:contentDescription="@string/imagecharacter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--<ImageView-->
+        <!--android:id="@+id/image_fragment"-->
+        <!--android:layout_width="263dp"-->
+        <!--android:layout_height="167dp"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:contentDescription="@string/imagecharacter"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
 
     <TextView
-        android:id="@+id/character"
+        android:id="@+id/characterFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_image" />
+        app:layout_constraintStart_toStartOf="parent"/>
+        <!--app:layout_constraintTop_toBottomOf="@+id/image_fragment" -->
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/descriptionFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/character" />
+        app:layout_constraintTop_toBottomOf="@+id/characterFragment" />
 
 </android.support.constraint.ConstraintLayout>

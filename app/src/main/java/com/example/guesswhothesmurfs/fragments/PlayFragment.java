@@ -2,8 +2,7 @@ package com.example.guesswhothesmurfs.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Fragment;
-import android.content.ContentValues;
+import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,14 +17,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.guesswhothesmurfs.R;
 import com.example.guesswhothesmurfs.activities.GameChooseActivity;
-import com.example.guesswhothesmurfs.activities.PlayGameActivity;
 import com.example.guesswhothesmurfs.adapters.GuessWhoTheSmurfsAdapter;
 import com.example.guesswhothesmurfs.interfaces.RecyclerViewItemClickListener;
 import com.example.guesswhothesmurfs.models.GuessWhoTheSmurfsCharacter;
@@ -33,22 +29,20 @@ import com.example.guesswhothesmurfs.persistency.CharacterContract;
 import com.example.guesswhothesmurfs.util.CustomRVItemTouchListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by prebe on 17/01/2018.
  */
 
-public class ChooseActivityFragment extends Fragment {
+public class PlayFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private static final String TAG = "GuessWhoTheSmurfs";
     private GuessWhoTheSmurfsCharacter character;
-    private GuessWhoTheSmurfsAdapter adapter;
-    private List<GuessWhoTheSmurfsCharacter> characters;
 
-    public ChooseActivityFragment() {
+
+    public PlayFragment() {
     }
 
     @Override
@@ -62,15 +56,7 @@ public class ChooseActivityFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        if(savedInstanceState != null){
-            GuessWhoTheSmurfsCharacter[] smurfsCharacters = (GuessWhoTheSmurfsCharacter[]) savedInstanceState.getSerializable("characterArray");
-            characters = Arrays.asList(smurfsCharacters);
-        } else {
-            characters = generateData();
-        }
-
-        adapter = new GuessWhoTheSmurfsAdapter(characters,getActivity().getApplicationContext());
+        final GuessWhoTheSmurfsAdapter adapter = new GuessWhoTheSmurfsAdapter(generateData(),getActivity().getApplicationContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
@@ -84,41 +70,9 @@ public class ChooseActivityFragment extends Fragment {
 
                 character = adapter.view(position);
 
-                final LayoutInflater inflater = LayoutInflater.from(getContext());
-                final View dialog = inflater.inflate(R.layout.detail_dialog, null);
-                final View updateView = inflater.inflate(R.layout.update_character, null);
-                AlertDialog alert = new AlertDialog.Builder(getContext())
-                        .setView(dialog).setPositiveButton("Choose", new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                Intent intent = new Intent(getActivity().getApplicationContext(), PlayGameActivity.class);
-                                intent.putExtra("character", character);
-                                startActivity(intent);
-                            }
-
-                        }).setNegativeButton(android.R.string.cancel, null).show();
-
-
-                doKeepDialog(alert);
-
-                ImageView imageView = (ImageView) dialog.findViewById(R.id.dialog_image);
-                imageView.setImageResource(character.getCharacterImage());
-                TextView name = (TextView) dialog.findViewById(R.id.character);
-                name.setText(character.getName());
-                TextView description = (TextView) dialog.findViewById(R.id.description);
-                description.setText(character.getDescription());
             }
         }));
     }
-
-    private void doKeepDialog(Dialog dialog){
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        dialog.getWindow().setAttributes(lp);
-    }
-
 
     private List<GuessWhoTheSmurfsCharacter> generateData() {
         List<GuessWhoTheSmurfsCharacter> data = new ArrayList<>();
@@ -158,12 +112,4 @@ public class ChooseActivityFragment extends Fragment {
         return data;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        List<GuessWhoTheSmurfsCharacter> characterList = adapter.getAllCharacters();
-        GuessWhoTheSmurfsCharacter[] guessWhoTheSmurfsCharacters = new GuessWhoTheSmurfsCharacter[characterList.size()];
-        characterList.toArray(guessWhoTheSmurfsCharacters);
-        outState.putSerializable("characterArray", guessWhoTheSmurfsCharacters);
-    }
 }
