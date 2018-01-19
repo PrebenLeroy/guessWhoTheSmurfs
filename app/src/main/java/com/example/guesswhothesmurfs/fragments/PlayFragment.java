@@ -2,6 +2,7 @@ package com.example.guesswhothesmurfs.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,7 +23,9 @@ import android.widget.TextView;
 
 import com.example.guesswhothesmurfs.R;
 import com.example.guesswhothesmurfs.activities.GameChooseActivity;
+import com.example.guesswhothesmurfs.adapters.GameAdapter;
 import com.example.guesswhothesmurfs.adapters.GuessWhoTheSmurfsAdapter;
+import com.example.guesswhothesmurfs.interfaces.MyListener;
 import com.example.guesswhothesmurfs.interfaces.RecyclerViewItemClickListener;
 import com.example.guesswhothesmurfs.models.GuessWhoTheSmurfsCharacter;
 import com.example.guesswhothesmurfs.persistency.CharacterContract;
@@ -41,7 +44,7 @@ public class PlayFragment extends Fragment {
     private RecyclerView recyclerView;
     private static final String TAG = "GuessWhoTheSmurfs";
     private GuessWhoTheSmurfsCharacter character;
-    private GuessWhoTheSmurfsAdapter adapter;
+    private GameAdapter adapter;
     private List<GuessWhoTheSmurfsCharacter> characters;
 
     public PlayFragment() {
@@ -51,6 +54,7 @@ public class PlayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_choose, container, false);
+        v.setBackgroundColor(Color.GRAY);
         recyclerView = (RecyclerView) v.findViewById(R.id.recyclerview);
         return v;
     }
@@ -62,11 +66,12 @@ public class PlayFragment extends Fragment {
         if(savedInstanceState != null){
             GuessWhoTheSmurfsCharacter[] smurfsCharacters = (GuessWhoTheSmurfsCharacter[]) savedInstanceState.getSerializable("characterArray");
             characters = Arrays.asList(smurfsCharacters);
+
         } else {
             characters = generateData();
         }
 
-        adapter = new GuessWhoTheSmurfsAdapter(characters,getActivity().getApplicationContext());
+        adapter = new GameAdapter(characters,getActivity().getApplicationContext());
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
@@ -80,6 +85,8 @@ public class PlayFragment extends Fragment {
             public void onClick(View view, final int position) {
 
                 character = adapter.view(position);
+                MyListener listener = (MyListener) PlayFragment.this.getActivity();
+                listener.showDetail(character);
 
             }
         }));

@@ -1,5 +1,6 @@
 package com.example.guesswhothesmurfs.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.guesswhothesmurfs.R;
+import com.example.guesswhothesmurfs.models.GuessWhoTheSmurfsCharacter;
 
 /**
  * Created by prebe on 17/01/2018.
@@ -18,7 +20,8 @@ public class DetailFragment extends Fragment {
 
     public final static String ARG_POSITION = "position";
     int mCurrentPosition = -1;
-//    ImageView picture;
+    private GuessWhoTheSmurfsCharacter guessWhoTheSmurfsCharacter;
+    ImageView picture;
     TextView character, description;
 
     @Override
@@ -32,15 +35,10 @@ public class DetailFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.detail_activity, container, false);
-//        picture = (ImageView) v.findViewById(R.id.image_fragment);
+        v.setBackgroundColor(Color.GRAY);
+        picture = (ImageView) v.findViewById(R.id.image_fragment);
         character = (TextView) v.findViewById(R.id.characterFragment);
         description = (TextView) v.findViewById(R.id.descriptionFragment);
-        if (savedInstanceState != null) {
-//            mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
-//            picture.setImageResource(savedInstanceState.getInt("picID"));
-            character.setText(savedInstanceState.getString("name"));
-            description.setText(savedInstanceState.getString("description"));
-        }
         return v;
     }
 
@@ -55,30 +53,28 @@ public class DetailFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             // Set article based on argument passed in
-            updateDetailView(args.getInt(ARG_POSITION));
-        } else if (mCurrentPosition != -1) {
+            updateDetailView((GuessWhoTheSmurfsCharacter) args.getSerializable(ARG_POSITION));
+        }
+      else if (mCurrentPosition != -1) {
             // Set article based on saved instance state defined during onCreateView
-            updateDetailView(mCurrentPosition);
+            updateDetailView(guessWhoTheSmurfsCharacter);
         }
     }
 
-    public void updateDetailView(int position) {
-//        picture.setImageResource(R.mipmap.bril);
-        character.setText("test");
-        description.setText("test");
-        mCurrentPosition = position;
+    public void updateDetailView(GuessWhoTheSmurfsCharacter e) {
+        guessWhoTheSmurfsCharacter = e;
+        picture.setImageResource(guessWhoTheSmurfsCharacter.getCharacterImage());
+        character.setText(guessWhoTheSmurfsCharacter.getName());
+        description.setText(guessWhoTheSmurfsCharacter.getDescription());
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        // Save the current article selection in case we need to recreate the fragment
-        outState.putInt(ARG_POSITION, mCurrentPosition);
-//        outState.putInt("picId", R.mipmap.bril);
-        outState.putString("name", character.getText().toString());
-        outState.putString("description", description.getText().toString());
-
-    }
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//
+//        // Save the current article selection in case we need to recreate the fragment
+//        outState.putInt(ARG_POSITION, mCurrentPosition);
+//        outState.putSerializable("char", guessWhoTheSmurfsCharacter);
+//    }
 
 }
